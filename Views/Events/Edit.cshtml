@@ -1,0 +1,44 @@
+﻿<h1>Edit Event:</h1>
+
+<form method="post" action="/events/edit">
+    <input type="hidden" value="@ViewBag.eventToEdit.Id" name="eventId" />
+    <div class="form-group">
+        <label>
+            Name
+            <input name="Name" type="text" value="@ViewBag.eventToEdit.Name" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            Description
+            <input name="Description" type="text" value="@ViewBag.eventToEdit.Description" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            Contact Email
+            <input name="ContactEmail" type="text" value="@ViewBag.eventToEdit.ContactEmail" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            Address
+            <input name="Address" type="text" value="@ViewBag.eventToEdit.Address" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            Number of Attendees
+            <input name="Attendees" type="number" value="@ViewBag.eventToEdit.Attendees" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            RSVP?
+            <input name="RSVP" type="checkbox" value="@ViewBag.eventToEdit.RSVP" />
+        </label>
+    </div>
+    <input type="submit" value="Edit Event" />
+</form>
+
+<partial name="/Views/Shared/_LinkListPartial.cshtml" />

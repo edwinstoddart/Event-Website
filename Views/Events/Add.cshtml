@@ -1,0 +1,43 @@
+﻿@model CodingEvents.ViewModel.AddEventViewModel;
+
+<h1>Add Event:</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" />
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ContactEmail">Contact Email</label>
+        <input asp-for="ContactEmail" />
+        <span asp-validation-for="ContactEmail"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Type">Event Type</label>
+        <select asp-for="Type" asp-items="Model.EventTypes"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address"></label>
+        <input asp-for="Address" />
+        <span asp-validation-for="Address"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Attendees"></label>
+        <input asp-for="Attendees" />
+        <span asp-validation-for="Attendees"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RSVP">RSVP?</label>
+        <input asp-for="RSVP" />
+        <span asp-validation-for="RSVP"></span>
+    </div>
+    <input type="submit" value="Add Event" />
+</form>
+
+<partial name="/Views/Shared/_LinkListPartial.cshtml" />
