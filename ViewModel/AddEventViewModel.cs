@@ -22,14 +22,9 @@ namespace CodingEvents.ViewModel
         [EmailAddress]
         public string ContactEmail { get; set; }
 
-        public EventType Type { get; set; }
-        public List<SelectListItem> EventTypes { get; set; } = new List<SelectListItem>
-        {
-            new SelectListItem(EventType.Conference.ToString(), ((int)EventType.Conference).ToString()),
-            new SelectListItem(EventType.Meetup.ToString(),     ((int)EventType.Meetup).ToString()),
-            new SelectListItem(EventType.Workshop.ToString(),   ((int)EventType.Workshop).ToString()),
-            new SelectListItem(EventType.Social.ToString(),     ((int)EventType.Social).ToString())
-        };
+        [Required(ErrorMessage = "A Category is required.")]
+        public int CategoryId { get; set; }
+        public List<SelectListItem> Categories { get; set; }
 
         [Required(ErrorMessage = "An address is required for the Event.")]
         [StringLength(50, MinimumLength = 5, ErrorMessage = "Please enter a full street address.")]
@@ -42,5 +37,21 @@ namespace CodingEvents.ViewModel
         public bool RSVP { get; set; }
 
         public bool IsTrue { get { return true; } }
+
+        public AddEventViewModel() { }
+        public AddEventViewModel(List<EventCategory> categories)
+        {
+            Categories = new List<SelectListItem>();
+
+            foreach (EventCategory category in categories)
+            {
+                Categories.Add(new SelectListItem
+                    {
+                        Value = category.Id.ToString(),
+                        Text = category.Name
+                    }
+                );
+            }
+        }
     }
 }

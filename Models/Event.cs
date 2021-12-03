@@ -10,7 +10,8 @@ namespace CodingEvents.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string ContactEmail { get; set; }
-        public EventType Type { get; set; }
+        public EventCategory Category { get; set; }
+        public int CategoryId { get; set; }
         public string Address { get; set; }
         public int Attendees { get; set; }
         public bool RSVP { get; set; }
@@ -19,12 +20,12 @@ namespace CodingEvents.Models
         public Event()
         {
         }
-        public Event(string name, string description, string contactEmail, EventType type, string address, int attendees)
+        public Event(string name, string description, string contactEmail, EventCategory category, string address, int attendees)
         {
             Name = name;
             Description = description;
             ContactEmail = contactEmail;
-            Type = type;
+            Category = category;
             Address = address;
             Attendees = attendees;
         }

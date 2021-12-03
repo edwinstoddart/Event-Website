@@ -2,6 +2,7 @@
 using CodingEvents.Models;
 using CodingEvents.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace CodingEvents.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            List<Event> events = context.Events.ToList();
+            List<Event> events = context.Events.Include(e => e.Category).ToList();
             return View(events);
         }
 
@@ -30,7 +31,8 @@ namespace CodingEvents.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            AddEventViewModel addEventViewModel = new AddEventViewModel();
+            List<EventCategory> categories = context.Categories.ToList();
+            AddEventViewModel addEventViewModel = new AddEventViewModel(categories);
             return View(addEventViewModel);
         }
         // POST: /events/add
@@ -39,12 +41,13 @@ namespace CodingEvents.Controllers
         {
             if (ModelState.IsValid)
             {
+                EventCategory theCategory = context.Categories.Find(addEventViewModel.CategoryId);
                 Event newEvent = new Event
                 {
                     Name = addEventViewModel.Name,
                     Description = addEventViewModel.Description,
                     ContactEmail = addEventViewModel.ContactEmail,
-                    Type = addEventViewModel.Type,
+                    Category = theCategory,
                     Address = addEventViewModel.Address,
                     Attendees = addEventViewModel.Attendees,
                     RSVP = addEventViewModel.RSVP
@@ -94,6 +97,22 @@ namespace CodingEvents.Controllers
             eventToEdit.Attendees = attendees;
             eventToEdit.RSVP = rSVP;
             return Redirect("/events");
+        }
+
+        // GET: /Events/Detail/int?
+        public IActionResult Detail(int id)
+        {
+            Event theEvent = context.Events
+                .Include(e => e.Category)
+                .Single(e => e.Id == id);
+
+            List<EventTag> eventTags = context.EventTags
+                .Where(et => et.EventId == id)
+                .Include(et => et.Tag)
+                .ToList();
+
+            EventDetailViewModel viewModel = new EventDetailViewModel(theEvent, eventTags);
+            return View(viewModel);
         }
     }
 }

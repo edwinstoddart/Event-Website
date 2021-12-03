@@ -17,11 +17,11 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Event ID</th>
-                <th scope="col">Event Name</th>
-                <th scope="col">Event Description</th>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
                 <th scope="col">Contact Email</th>
-                <th scope="col">Event Type</th>
+                <th scope="col">Category</th>
                 <th scope="col">Address</th>
                 <th scope="col">Attendees</th>
                 <th scope="col">RSVP</th>
@@ -33,10 +33,10 @@
             {
             <tr>
                 <td>@events.Id</td>
-                <td>@events.Name</td>
+                <td><a asp-controller="Events" asp-action="Detail" asp-route-id="@events.Id">@events.Name</a></td>
                 <td>@events.Description</td>
                 <td>@events.ContactEmail</td>
-                <td>@events.Type</td>
+                <td>@events.Category.Name</td>
                 <td>@events.Address</td>
                 <td>@events.Attendees</td>
                 <td>@events.RSVP</td>
